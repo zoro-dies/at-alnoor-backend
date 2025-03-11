@@ -1,27 +1,39 @@
-import { sendNotificationViaMailJet } from "../utils/email.js"; // Adjust path as needed
+import {sendNotificationViaMailJet} from "../utils/email.js";
 
-const sendEmailController = async (req, res) => {
-  try {
-   
-    // const { email, name, subject, message } = req.body;
+const sendContactEmailController = async (req, res) => {
+    try {
+        const {email, firstName, lastName, message} = req.body;
 
-    // // Define email details
-    // const to = { email, name };
-    // const text = message;
-    // const html = `<p>${message}</p>`;
-    // console.log("hello")
-    
-    // Call the email helper function
-    await sendNotificationViaMailJet("aleehassan1999@gmail.com", "test", "test", "<p>hello</p>");
+        await sendNotificationViaMailJet("New Contact Form Submission", `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message}</p>
+          `,);
 
-    res.status(200).json({ success: true, message: "Email sent successfully!" });
-  } catch (error) {
-    // console.error("Error sending email:", error);
-    res.status(500).json({ success: false, message: "Failed to send email." , error : error });
-  }
+        res.status(200).json({success: true, message: "Email sent successfully!"});
+    } catch (error) {
+        res.status(500).json({success: false, message: "Failed to send email.", error: error});
+    }
+};
+
+const sendSubscribeEmailController = async (req, res) => {
+    try {
+        const {email} = req.body;
+
+        await sendNotificationViaMailJet("New Contact Form Submission", `
+            <h2>New Subscribe Form Submission</h2>
+            <p><strong>Email:</strong> ${email}</p>
+          `,);
+
+        res.status(200).json({success: true, message: "Email sent successfully!"});
+    } catch (error) {
+        res.status(500).json({success: false, message: "Failed to send email.", error: error});
+    }
 };
 
 
 export default {
-    sendEmailController
+    sendContactEmailController, sendSubscribeEmailController
 }

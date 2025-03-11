@@ -6,14 +6,13 @@ import dotenv from "dotenv";
 dotenv.config();
 import init from "./routes/index.js";
 
-
 const PORT = process.env.PORT || 5010;
-
-init(app)
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
 app.options("*", cors());
 
-
+init(app)
 
 app.listen(PORT, () => console.log(`Server started @PORT: ${PORT}`));
