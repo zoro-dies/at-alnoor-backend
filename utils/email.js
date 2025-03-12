@@ -22,7 +22,7 @@ export const sendNotificationViaMailJet = async (
                     },
                     To: [
                         {
-                            Email: "info@ayat-alnoor.com",
+                            Email: "ayatalnoor0055@gmail.com",
                             Name: "Ayat AlNoor",
                         },
                     ],
